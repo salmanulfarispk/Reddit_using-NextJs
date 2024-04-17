@@ -38,10 +38,43 @@ try{
            return {
             message:"This username is already used",
             status:"error"
-           }
+           };
         }         
      }
+     throw err;
 }
 
 }
  
+
+export async function createCommunity(formData: FormData){
+   const {getUser}=getKindeServerSession();
+   const user=await getUser()
+
+ if(!user){
+    redirect("/api/auth/login")
+ }
+ try{
+   const name= formData.get("name") as string
+   const data= await prisma.subreddit.create({
+      data:{
+         name:name,
+         userId: user.id
+      }
+   });
+   
+   return redirect("/")
+
+ }catch(err){
+   if(err instanceof Prisma.PrismaClientKnownRequestError){
+      if(err.code === 'P2002') {  
+         return {
+          message:"This Name is already used",
+          status:"error"
+         };
+      }         
+   }
+   throw err;
+ }
+
+}
