@@ -1,14 +1,37 @@
+"use client";
+import { createCommunity } from "@/app/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
 
+
+const initialstate={
+  message:'',
+  status:"",
+};
 
 export default function Subredditpage() {
+
+const [state, formAction]=useFormState(createCommunity,initialstate)
+const {toast}=useToast()
+
+useEffect(()=>{
+   if(state.status==="error"){
+    toast({
+      title:'Error',
+      description:state.message,
+      variant:"destructive"
+    })
+   }
+},[state, toast])
   return (
     <div className="max-w-[1000px] mx-auto flex flex-col mt-4">
-      <form>
+      <form action={formAction}>
         <h1 className="text-3xl font-extrabold tracking-tight">Create Community</h1>
         <Separator className="my-4"/>
         <Label className="text-lg">Name</Label>
@@ -25,7 +48,7 @@ export default function Subredditpage() {
 
         <div className="w-full flex justify-end mt-5 gap-x-5">
          <Button variant="secondary" asChild type="button"><Link href="/">cancel</Link></Button>
-         <Button >submit</Button>
+         <Button type="submit" >submit</Button>
 
         </div>
 

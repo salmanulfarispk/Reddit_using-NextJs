@@ -47,7 +47,7 @@ try{
 }
  
 
-export async function createCommunity(formData: FormData){
+export async function createCommunity(prevState:any, formData: FormData){
    const {getUser}=getKindeServerSession();
    const user=await getUser()
 
