@@ -1,5 +1,6 @@
 "use client";
 import { createCommunity } from "@/app/actions";
+import { SubmitButton } from "@/app/components/submitButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,13 +44,13 @@ useEffect(()=>{
         </p>
         <Input name="name" required
         className="pl-6" max={4} maxLength={21}/>
-
         </div>
+        <p className="mt-1 text-destructive">{state.message}</p>
 
         <div className="w-full flex justify-end mt-5 gap-x-5">
          <Button variant="secondary" asChild type="button"><Link href="/">cancel</Link></Button>
-         <Button type="submit" >submit</Button>
-
+         
+          <SubmitButton text="create Community"/>
         </div>
 
       </form>

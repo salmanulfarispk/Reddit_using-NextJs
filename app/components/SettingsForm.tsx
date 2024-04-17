@@ -59,7 +59,7 @@ export default function SettingsForm({username}:{username: string | null | undef
     <Button variant="secondary" asChild type="button">
         <Link href='/'>cancel</Link>
         </Button>
-    <SubmitButton/>
+    <SubmitButton text="change username"/>
     </div>
 
     </form>
