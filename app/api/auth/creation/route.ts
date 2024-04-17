@@ -28,7 +28,7 @@ export async function GET(){
             firstName:user.given_name  ?? "",
             lastName :user.family_name ?? "",
             imageUrl: user.picture,
-            userName : generateUsername("-", 3, 15)  //- as a seperator and 3 as three random digits and 15 as total lenght
+            userName : generateUsername("-", 3, 15)  //- as a seperator and 3 as three random digits and 15 as total length eg:dsgsd-gddbchdb-cgd
 
         }
       });
