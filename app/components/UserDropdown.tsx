@@ -6,7 +6,7 @@ import {LogoutLink} from '@kinde-oss/kinde-auth-nextjs/components'
 interface isprop {
     userImage: string | null
 }
-55
+
   
 export default function UserDropdown({userImage}: isprop) {
   return (
