@@ -1,6 +1,11 @@
+
+import SubdescriptionForm from "@/app/components/SubdescriptionForm";
 import prisma from "@/app/lib/db";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { Cake } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -24,6 +29,7 @@ async function getData(name: string){
 export default async function SubredditRoute({params}:{params: {id: string}}){
    
   const data=await getData(params.id)
+
    const {getUser}=getKindeServerSession()
    const user=await getUser();
     
@@ -45,7 +51,31 @@ export default async function SubredditRoute({params}:{params: {id: string}}){
                 />
                 <Link href="/" className="font-medium">r/{data?.name}</Link>
             </div>
-             <p className="text-sm font-normal text-secondary-foreground mt-2">{data?.description}</p>
+            {user?.id===data?.userId ? (
+                 <SubdescriptionForm subName={params.id} description={data?.description}/> 
+            ):(
+              <p className="text-sm font-normal text-secondary-foreground mt-2">{data?.description}</p>
+            )}
+
+            <div className="flex items-center gap-x-2 mt-4">
+             <Cake className="h-5 w-5 text-muted-foreground "/>
+           <p className="text-muted-foreground font-medium text-sm">Created: {new Date(data?.createdAt as Date).toLocaleDateString('en-IN',    //or we can use moment js for formats
+            {
+              weekday:'long',
+              year:'numeric',
+              month:'short',
+              day:'numeric',
+            }
+           )}</p>
+            </div>
+
+
+          <Separator className="my-5"/>
+          <Button asChild className="rounded-full w-full">
+          <Link href={user?.id ?   `/r/${data?.name}/create` : '/api/auth/login'}>
+           Create Post
+          </Link>
+          </Button>
 
            </div>
        </Card>
