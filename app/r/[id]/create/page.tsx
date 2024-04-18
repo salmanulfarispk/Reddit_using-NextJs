@@ -1,3 +1,4 @@
+"use client"
 import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import pfp from "../../../../public/pfp.png"
@@ -9,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TipTapEditor } from "@/app/components/TipTabEditor";
 import { SubmitButton } from "@/app/components/submitButton";
+import { UploadDropzone } from "@/app/components/Uploadthing";
 
 
 
@@ -64,7 +66,6 @@ export default function CreateRoutePost({params}:{params: {id: string}}){
   <CardHeader>
     <Label>Title</Label>
    <Input name="title" placeholder="Title" required/>
-
     <TipTapEditor/>
   </CardHeader>
    <CardFooter>
@@ -75,11 +76,21 @@ export default function CreateRoutePost({params}:{params: {id: string}}){
    </TabsContent>
 
    <TabsContent value="image">
-
+     <Card>
     <CardHeader>
-     <h1>uploads images or video</h1>
+     <UploadDropzone  className="ut-button:bg-primary ut-button:ut-readying:bg-primary/50 ut-label:text-primary
+     ut-button:ut-uploading:bg-primary/50   ut-button:ut-uploading:after:bg-primary"
+     endpoint="imageUploader" onClientUploadComplete={(res)=>{
+        console.log(res);
+     }}
+     onUploadError={(error:Error)=>{
+        alert("Error")
+        console.log(error);
+        
+     }}/>
 
     </CardHeader>
+    </Card>
    </TabsContent>
    </Tabs>
 

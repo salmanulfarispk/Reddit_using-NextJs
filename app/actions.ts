@@ -112,9 +112,19 @@ return{
       status:"error",
       message:"sorry something went wrong!"
    }
-
-
 }
+}
+
+
+export async function createPost(){
+   const {getUser}=getKindeServerSession()
+   const user=await getUser()
+
+   if(!user){
+      return redirect('/api/auth/login')
+   }
+
+   
 
 
 }
