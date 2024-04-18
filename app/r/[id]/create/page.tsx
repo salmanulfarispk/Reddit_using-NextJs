@@ -1,7 +1,14 @@
-import { Card } from "@/components/ui/card";
+import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import pfp from "../../../../public/pfp.png"
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Text, Video } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { TipTapEditor } from "@/app/components/TipTabEditor";
+import { SubmitButton } from "@/app/components/submitButton";
 
 
 
@@ -42,8 +49,41 @@ export default function CreateRoutePost({params}:{params: {id: string}}){
   <div className="max-w-[1000px] mx-auto flex  gap-x-10 mt-4">
   <div className="w-[65%] flex flex-col gap-y-5">
 
-   <h1>Subreddit: {params.id}</h1>
+   <h1 className="font-semibold">
+    Subreddit: <Link href={`/r/${params.id}`} className="text-primary">{params.id}</Link>
+    </h1>
+   <Tabs defaultValue="post" className="w-full">
+  <TabsList className="grid w-full grid-cols-2">
+   <TabsTrigger value="post"><Text className="w-4 h-4 mr-2"/>Post</TabsTrigger>
+   <TabsTrigger value="image"><Video className="w-4 h-4 mr-2"/> Image & Video</TabsTrigger>
+  </TabsList>
 
+   <TabsContent value="post">
+  <Card>
+<form>
+  <CardHeader>
+    <Label>Title</Label>
+   <Input name="title" placeholder="Title" required/>
+
+    <TipTapEditor/>
+  </CardHeader>
+   <CardFooter>
+    <SubmitButton text="Create post"/>
+   </CardFooter>
+</form>
+  </Card>
+   </TabsContent>
+
+   <TabsContent>
+
+
+
+
+
+
+
+   </TabsContent>
+   </Tabs>
 
   </div>
 
