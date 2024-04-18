@@ -74,14 +74,12 @@ export default function CreateRoutePost({params}:{params: {id: string}}){
   </Card>
    </TabsContent>
 
-   <TabsContent>
+   <TabsContent value="image">
 
+    <CardHeader>
+     <h1>uploads images or video</h1>
 
-
-
-
-
-
+    </CardHeader>
    </TabsContent>
    </Tabs>
 
