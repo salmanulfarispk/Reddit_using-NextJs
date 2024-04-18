@@ -4,6 +4,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { Prisma } from "@prisma/client";
+import { title } from "process";
 
 
 
@@ -116,15 +117,27 @@ return{
 }
 
 
-export async function createPost(){
+export async function createPost(formData : FormData){
    const {getUser}=getKindeServerSession()
    const user=await getUser()
 
    if(!user){
       return redirect('/api/auth/login')
    }
+  
+   const titlename= formData.get("title") as String
+   const imageUrl= formData.get("imageUrl") as String | null
 
-   
+  await prisma.post.create({
+     data:{
+      title: titlename,
+      imageString: imageUrl ?? undefined,
+      subName: "faris",
+      userId: user.id,
+      textContent: "",
+
+     }
+  })
 
 
 }
