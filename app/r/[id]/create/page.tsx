@@ -94,16 +94,25 @@ const createPostReddit= createPost.bind(null, {jsonContent: json});
    <TabsContent value="image">
      <Card>
     <CardHeader>
-     <UploadDropzone  className="ut-button:bg-primary ut-button:ut-readying:bg-primary/50 ut-label:text-primary
-     ut-button:ut-uploading:bg-primary/50   ut-button:ut-uploading:after:bg-primary"
-     endpoint="imageUploader" onClientUploadComplete={(res)=>{
-         setImageUrl(res[0].url)
-     }}
-     onUploadError={(error:Error)=>{
-        alert("Error")
-        console.log(error);
-        
-     }}/>
+
+     {imageUrl===null ? (
+       <UploadDropzone  className="ut-button:bg-primary ut-button:ut-readying:bg-primary/50 ut-label:text-primary
+       ut-button:ut-uploading:bg-primary/50   ut-button:ut-uploading:after:bg-primary"
+       endpoint="imageUploader" onClientUploadComplete={(res)=>{
+           setImageUrl(res[0].url)
+       }}
+       onUploadError={(error:Error)=>{
+          alert("Error")
+          console.log(error);
+          
+       }}/>
+     ):(
+       
+      <Image src={imageUrl} alt="uploaded-image"
+      width={500} height={400}
+      className="h-80 rounded-lg w-full object-contain"/>
+
+     )}
 
     </CardHeader>
     </Card>

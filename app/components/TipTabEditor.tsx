@@ -57,7 +57,9 @@ export function TipTapEditor({setJson, json}: {setJson: any,json:JSONContent | n
         },
         onUpdate: ({editor})=> {
           const Json=editor.getJSON();
-          setJson(Json);
+          const plainObject = JSON.parse(JSON.stringify(Json)); 
+            setJson(plainObject);
+          
         }
     })
 

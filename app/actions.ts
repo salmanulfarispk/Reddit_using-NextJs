@@ -136,10 +136,11 @@ export async function createPost({jsonContent}:{jsonContent: JSONContent | null}
       imageString: imageUrl ?? undefined,
       subName: subName,
       userId: user.id,
-      textContent: "",
+      textContent: jsonContent ?? undefined,
 
      }
-  })
+  });
 
+    return redirect("/")
 
 }
