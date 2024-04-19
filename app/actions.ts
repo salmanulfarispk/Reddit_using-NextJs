@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { Prisma } from "@prisma/client";
 import { title } from "process";
+import { JSONContent } from "@tiptap/react";
 
 
 
@@ -117,7 +118,7 @@ return{
 }
 
 
-export async function createPost(formData : FormData){
+export async function createPost({jsonContent}:{jsonContent: JSONContent | null}, formData : FormData){
    const {getUser}=getKindeServerSession()
    const user=await getUser()
 
@@ -125,14 +126,15 @@ export async function createPost(formData : FormData){
       return redirect('/api/auth/login')
    }
   
-   const titlename= formData.get("title") as String
-   const imageUrl= formData.get("imageUrl") as String | null
+   const title= formData.get("title")  as string
+   const imageUrl= formData.get("imageUrl") as string | null
+   const subName= formData.get("subName")  as string | null
 
   await prisma.post.create({
      data:{
-      title: titlename,
+      title: title,
       imageString: imageUrl ?? undefined,
-      subName: "faris",
+      subName: subName,
       userId: user.id,
       textContent: "",
 
