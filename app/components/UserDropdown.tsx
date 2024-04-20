@@ -31,7 +31,7 @@ export default function UserDropdown({userImage}: isprop) {
 
     </DropdownMenuItem>
     <DropdownMenuItem>
-    <Link href='/create' className="w-full">
+    <Link href='/r/faris/create' className="w-full">
        Create Post
       </Link>
     </DropdownMenuItem>
