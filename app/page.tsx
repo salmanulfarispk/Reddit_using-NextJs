@@ -8,6 +8,8 @@ import Link from "next/link";
 import { CreatePostCard } from "./components/CreatePostCard";
 import prisma from "./lib/db";
 import { PostCard } from "./components/PostCard";
+import { Suspense } from "react";
+import SuspenseCard from "./components/SuspenseCard";
 
 
 
@@ -42,32 +44,20 @@ async function getData(){
    return data;
 }
 
-export default async function Home() {
+export default  function Home() {
 
-  const data=await getData();
- 
   return (
 
-    <div className=" max-w-[1000px] mx-auto flex gap-x-10 mt-4">
+    <div className=" max-w-[1000px] mx-auto flex gap-x-10 mt-4 mb-10">
     <div className="flex w-[65%] flex-col gap-y-4">
 
        <CreatePostCard/>
-       
-       {data.map((post)=>(
-
-         <PostCard key={post.id} id={post.id} imageString={post.imageString} title={post.title} 
-         subName={post.subName as string}  jsonContent={post.textContent} userName={post.User?.userName as string}
-         voteCount={post.Vote.reduce((acc, vote) => {
-          if (vote.voteType === "UP") return acc + 1;
-          if (vote.voteType === "DOWN") return acc - 1;
-          return acc;
-        }, 0)}
-        />
-       ))}
-  
+       <Suspense fallback={<SuspenseCard/>}>
+       <ShowItems/>
+       </Suspense>
     </div>
 
-    <div className="w-[35%]">
+    <div className="w-[35%] ">
 
        <Card>
         <Image src={bestbanner} alt="bnner"/>
@@ -93,3 +83,25 @@ export default async function Home() {
     </div>
   );
 }
+
+
+async function ShowItems(){
+  const data=await getData();
+
+  return (
+    <>
+     {data.map((post)=>(
+
+<PostCard key={post.id} id={post.id} imageString={post.imageString} title={post.title} 
+subName={post.subName as string}  jsonContent={post.textContent} userName={post.User?.userName as string}
+voteCount={post.Vote.reduce((acc, vote) => {
+ if (vote.voteType === "UP") return acc + 1;
+ if (vote.voteType === "DOWN") return acc - 1;
+ return acc;
+}, 0)}
+/>
+))}
+    
+    </>
+  )
+} 

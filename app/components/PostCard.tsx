@@ -57,8 +57,9 @@ export function PostCard({id,title,jsonContent,subName,userName,imageString,vote
      <Image src={imageString} alt="post image" width={600} height={300}
      className="w-full h-full"/>
   ):(
-
+    
    <Rendertojson data={jsonContent}/>
+   
   )}
 
   </div>
