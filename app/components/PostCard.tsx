@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { ArrowDown, ArrowUp, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import CopyLink from "./CopyLink";
 
 
 interface isprop{
@@ -52,13 +53,15 @@ export function PostCard({id,title,jsonContent,subName,userName,imageString}:isp
   className="w-full h-full"/> )}
   </div>
 
-  <div className="m-3">
+  <div className="m-3 flex items-center gap-x-5">
   <div className="flex items-center gap-x-1">
   <MessageCircle className="w-4 h-4 text-muted-foreground"/>
   <p className="text-muted-foreground font-medium  text-xs">31 Comments</p>
   </div>
+  
+  <CopyLink id={id}/>
+    
   </div>
-
    </div>
   </Card>
 

@@ -38,7 +38,7 @@ export default async function Home() {
   return (
 
     <div className=" max-w-[1000px] mx-auto flex gap-x-10 mt-4">
-    <div className="flex w-[65%] flex-col gap-y-5">
+    <div className="flex w-[65%] flex-col gap-y-4">
 
        <CreatePostCard/>
        
