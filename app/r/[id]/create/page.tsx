@@ -80,7 +80,7 @@ const createPostReddit= createPost.bind(null, {jsonContent: json});
 
   <CardHeader>
     <Label>Title</Label>
-   <Input name="title" placeholder="Title" value={title ?? undefined}  
+   <Input name="title" placeholder="Title" value={title ?? ""}  
       onChange={(e)=> setTitle(e.target.value)}   required/>
     <TipTapEditor setJson={setJson} json={json}/>
   </CardHeader>

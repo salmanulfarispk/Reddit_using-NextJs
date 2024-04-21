@@ -4,6 +4,9 @@ import { ArrowDown, ArrowUp, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import CopyLink from "./CopyLink";
+import { handleVote } from "../actions";
+import { DownVote, UpVote } from "./submitButton";
+import Rendertojson from "./Rendertojson";
 
 
 interface isprop{
@@ -13,24 +16,24 @@ interface isprop{
    subName:string;
    userName: string;
    imageString:string | null ;
-
+   voteCount : number
 }
 
-export function PostCard({id,title,jsonContent,subName,userName,imageString}:isprop){
+export function PostCard({id,title,jsonContent,subName,userName,imageString,voteCount}:isprop){
     return (
 
   <Card className="flex relative overflow-hidden">
    <div className="flex flex-col  items-center gap-y-2 bg-muted p-2">
-  <form>
-     <Button variant="outline" size="sm">
-        <ArrowUp className="h-4 w-4" />
-     </Button>
+  <form action={handleVote}>
+   <input type="hidden" name="voteDirection" value="UP"/>
+   <input type="hidden" name="postId" value={id}/>
+    <UpVote/>
   </form>
-   0
-  <form>
-     <Button variant="outline" size="sm">
-        <ArrowDown className="h-4 w-4" />
-     </Button>
+   {voteCount}
+  <form action={handleVote}>
+  <input type="hidden" name="voteDirection" value="DOWN"/>
+  <input type="hidden" name="postId" value={id}/>
+   <DownVote/>
   </form>
    </div>
 
@@ -48,9 +51,16 @@ export function PostCard({id,title,jsonContent,subName,userName,imageString}:isp
    </Link>
    </div>
   
-  <div>
-  {imageString && (<Image src={imageString} alt="post image" width={600} height={300}
-  className="w-full h-full"/> )}
+  <div className="max-h-[300px] overflow-hidden">
+  
+  {imageString ?(
+     <Image src={imageString} alt="post image" width={600} height={300}
+     className="w-full h-full"/>
+  ):(
+
+   <Rendertojson data={jsonContent}/>
+  )}
+
   </div>
 
   <div className="m-3 flex items-center gap-x-5">
