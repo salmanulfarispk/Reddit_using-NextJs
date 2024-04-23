@@ -27,6 +27,11 @@ async function getData(searchParams: string){
         textContent:true,
         id:true,
         imageString: true,
+        Comment: {
+          select:{
+            id: true,
+          },
+        },
         User:{
           select:{
             userName:true,
@@ -104,6 +109,7 @@ async function ShowItems({searchParams}:{searchParams:{page: string}} ){
     title={post.title}
     subName={post.subName as string}
     jsonContent={post.textContent}
+    commentAmount={post.Comment.length}
     userName={post.User?.userName as string}
     voteCount={post.Vote.reduce((acc, vote) => {
       if (vote.voteType === "UP") return acc + 1;
