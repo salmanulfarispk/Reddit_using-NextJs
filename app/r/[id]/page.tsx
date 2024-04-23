@@ -108,13 +108,10 @@ export default async function SubredditRoute({
         />
        ))}
                
-               
-               
-               
                </>
           )}
 
-         <Pagination totalPages={Math.ceil(3)}/>
+         <Pagination totalPages={Math.ceil(3)}/>     
 
        </div>
 
