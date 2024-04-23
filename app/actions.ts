@@ -65,7 +65,7 @@ export async function createCommunity(prevState:any, formData: FormData){
       }
    });
    
-   return redirect("/")
+   return redirect(`/r/${data.name}`)
 
  }catch(err){
    if(err instanceof Prisma.PrismaClientKnownRequestError){
@@ -130,7 +130,7 @@ export async function createPost({jsonContent}:{jsonContent: JSONContent | null}
    const imageUrl= formData.get("imageUrl") as string | null
    const subName= formData.get("subName")  as string | null
 
-  await prisma.post.create({
+   const data=await prisma.post.create({
      data:{
       title: title,
       imageString: imageUrl ?? undefined,
@@ -141,7 +141,7 @@ export async function createPost({jsonContent}:{jsonContent: JSONContent | null}
      }
   });
 
-    return redirect("/")
+    return redirect(`/post/${data.id}`)
 
 }
 

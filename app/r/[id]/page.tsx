@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Cake } from "lucide-react";
+import { Cake, FileQuestion } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -36,6 +36,11 @@ async function getData(name: string,searchParams:string){
           take:3,
           skip: searchParams ? (Number(searchParams) - 1) * 3 : 0 ,
           select:{
+            Comment:{
+              select:{
+                id: true,
+              },
+            },
             title:true,
             imageString:true,
             id:true,
@@ -76,9 +81,25 @@ export default async function SubredditRoute({
     <div className="max-w-[1000px] mx-auto flex gap-x-10 mt-4 mb-10">
        <div className="w-[65%] flex flex-col gap-y-5">
           <CreatePostCard/>
-       {data?.posts.map((post)=>(
+          
+          {data?.posts.length === 0 ? (
+                  <div className="flex min-h-[300px] flex-col justify-center items-center rounded-md border border-dashed p-8 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10">
+                    <FileQuestion className="h-10 w-10 text-primary" />
+                  </div>
+      
+                  <h2 className="mt-6 text-xl font-semibold">
+                    No post have been created
+                  </h2>
+                </div>
+
+          ):(
+               <>
+               
+               {data?.posts.map((post)=>(
         <PostCard key={post.id} id={post.id} imageString={post.imageString} subName={data.name}
         title={post.title} userName={post.User?.userName as string} jsonContent={post.textContent}
+        commentAmount={post.Comment.length}
         voteCount={post.Vote.reduce((acc, vote) => {
           if (vote.voteType === "UP") return acc + 1;
           if (vote.voteType === "DOWN") return acc - 1;
@@ -86,6 +107,12 @@ export default async function SubredditRoute({
         }, 0)}
         />
        ))}
+               
+               
+               
+               
+               </>
+          )}
 
          <Pagination totalPages={Math.ceil(3)}/>
 
