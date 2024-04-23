@@ -118,14 +118,14 @@ export default async function SubredditRoute({
 
        </div>
 
-     <div className="w-[35%]">
+     <div className="w-[35%]">      
        <Card>
            <div className="p-4 bg-muted font-semibold">About Community</div>
            <div className="p-4">
             <div className="flex items-center gap-x-3">
                 <Image src={`https://avatar.vercel.sh/${data?.name}`}
                 alt="image of subreddit"
-                width={60} height={60}
+                width={60} height={60}    
                 className="rounded-full h-16 w-16"
                 />
                 <Link href="/" className="font-medium">r/{data?.name}</Link>
@@ -145,7 +145,7 @@ export default async function SubredditRoute({
               month:'short',
               day:'numeric',
             }
-           )}</p>
+           )}</p>      
             </div>
 
 
